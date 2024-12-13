@@ -33,13 +33,13 @@ jobs:
         run: |
           terraform validate
 
-      - name: Deploy resoruces
+      - name: Plan resoruces
         run: |
             terraform plan -var-file="main.tfvars" -out=tfplan
 
       - name: Sync files to S3
         run: |
-          aws s3 sync tfplan/ s3://${{ env.BUCKET_NAME }}
+          aws s3 cp tfplan s3://${{ env.BUCKET_NAME }}/tfplan
 
       # - name: Upload tfplan artifact
       #   uses: actions/upload-artifact@v3
