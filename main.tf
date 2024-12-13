@@ -3,7 +3,7 @@ module "s3_bucket" {
   bucket_name = var.bucket_name
 }
 
-module "s3_bucket" {
+module "s3_bucket0" {
   source      = "./modules/s3"
   bucket_name = var.bucket_name1
 }
