@@ -36,4 +36,5 @@ jobs:
       - name: Deploy resoruces
         run: |
             terraform plan -var-file="main.tfvars"
+            workflow_dispatch:  # Permite disparar manualmente el workflow desde GitHub UI
             terraform apply -var-file="main.tfvars" -auto-approve
