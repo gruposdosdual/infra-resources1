@@ -37,11 +37,15 @@ jobs:
         run: |
             terraform plan -var-file="main.tfvars" -out=tfplan
 
-      - name: Upload tfplan artifact
-        uses: actions/upload-artifact@v3
-        with:
-            name: s3-tfplan
-            path: s3-tfplan
+      - name: Sync files to S3
+        run: |
+          aws s3 sync tfplan/ s3://${{ env.BUCKET_NAME }}
+
+      # - name: Upload tfplan artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #       name: s3-tfplan
+      #       path: tfplan
   apply:
     runs-on: ubuntu-latest
     needs: plan
