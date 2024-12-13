@@ -39,7 +39,7 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 cp tfplan s3://${{ env.BUCKET_NAME }}/tfplan
+          aws s3 cp tfplan s3://${{ env.BUCKET_NAME }}
 
       # - name: Upload tfplan artifact
       #   uses: actions/upload-artifact@v3
