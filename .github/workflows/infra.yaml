@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
             name: s3-tfplan
-            path: tfplan
+            path: s3-tfplan
   apply:
     runs-on: ubuntu-latest
     needs: plan
