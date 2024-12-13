@@ -18,7 +18,7 @@ jobs:
           terraform_version: 1.5.0  
 
       - name: Deploy with Terraform
-        run:
+        run: |
           terraform init
           terraform plan 
           terraform apply -auto-approve
