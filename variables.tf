@@ -1,5 +1,5 @@
 variable "user_aws" {
-  description = "Usuario AWS"
+  description = "Usuario de AWS"
   type        = string
 }
 
