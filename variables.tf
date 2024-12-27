@@ -1,7 +1,7 @@
-variable "user_aws" {
+/*variable "user_aws" {
   description = "Usuario AWS"
   type        = string
-}
+}*/
 
 variable "aws_region" {
   description = "La región de AWS donde se crearán los recursos"
