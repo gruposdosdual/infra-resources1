@@ -25,6 +25,16 @@ jobs:
                   aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}              
                   aws-region: 'eu-west-3'
 
+            - name: Validate Terraform Configuration
+              run: |
+                terraform init -backend=false
+                terraform validate
+
+            - name: Plan Infrastructure Changes
+              run: |
+                terraform init
+                terraform plan -var-file="main.tfvars"
+
             - name: Deploy with Terraform
               run: |
                 terraform init
