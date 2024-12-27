@@ -1,5 +1,5 @@
 variable "bucket_name" {
-  description = "Name para el bucket"
+  description = "Nombre para el bucket"
   type        = string
 }
 
