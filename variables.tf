@@ -4,7 +4,7 @@
 }*/
 
 variable "aws_region" {
-  description = "La región de AWS donde se crearán los recursos"
+  description = "La región de AWS donde se crean los recursos"
   type        = string
 }
 
