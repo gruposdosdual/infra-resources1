@@ -1,6 +1,6 @@
-variable "subnet_id" {
+variable "subnet_ids" {
   description = "ID de la subred"
-  type        = string
+  type        = list(string)
 }
 
 variable "vpc_security_group_ids" {

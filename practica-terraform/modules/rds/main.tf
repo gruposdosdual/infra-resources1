@@ -1,3 +1,22 @@
+/*
+
+terraform { 
+ backend "s3" { 
+  bucket = "test-bucket-43120896345235"
+  key    = "rds/terraform.tfstate" 
+  region = "eu-west-3" 
+ }
+}
+*/
+
+/*
+resource "aws_db_subnet_group" "this" {
+  name       = "main-db-subnet-group"
+  subnet_ids = [var.subnet_id]
+}
+*/
+
+
 resource "aws_db_instance" "default" {
   allocated_storage       = 10
   db_name                 = var.db_name
@@ -18,7 +37,11 @@ resource "aws_db_instance" "replica" {
   publicly_accessible     = false
 }
 
+
 resource "aws_db_subnet_group" "this" {
-  name       = "main-db-subnet-group"
-  subnet_ids = [var.subnet_id]
+  name        = "main-db-subnet-group"
+  subnet_ids  = var.subnet_ids
+  description = "Main DB Subnet Group for RDS"
 }
+
+
