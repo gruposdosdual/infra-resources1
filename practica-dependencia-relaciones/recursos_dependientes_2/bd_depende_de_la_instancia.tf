@@ -15,7 +15,7 @@ resource "aws_subnet" "subnet" {
 resource "aws_db_instance" "practica_recurso2" { 
   identifier        = "practica-recurso2-db" 
   engine            = "mysql" 
-  instance_class    = "db.t2.micro" 
+  instance_class    = "db.t4g.micro" 
   allocated_storage = 20 
   username          = "admin" 
   password          = "password" 
