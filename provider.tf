@@ -1,4 +1,4 @@
 provider "aws" {
   region = var.aws_region
-  #profile = var.user_aws
+  profile = "248189943700_EKS-alumnos"
 }
