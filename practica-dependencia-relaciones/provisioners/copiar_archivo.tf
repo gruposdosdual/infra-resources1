@@ -77,7 +77,7 @@ resource "aws_security_group" "allow_ssh" {
 resource "aws_instance" "practica_provisioner" {
   ami           = "ami-09be70e689bddcef5" # Cambia por un AMI válido.
   instance_type = "t2.micro"
-  key_name      = "my-key"       # Cambia por una clave SSH válida.
+  key_name      = "my-aws-key"       # Cambia por una clave SSH válida.
   subnet_id     = aws_subnet.subnet.id  # Asegúrate de que la subred esté definida
 
   # Usa vpc_security_group_ids en lugar de security_groups
@@ -101,7 +101,7 @@ resource "null_resource" "provision_file" {
     connection {
         type        = "ssh"
         user        = "ubuntu"     # Cambia según el AMI (puede ser 'ubuntu' o 'root').
-        private_key = file("my-key.pem") # Cambia a la ruta correcta de tu clave privada.
+        private_key = file("~/.ssh/my-aws-key.pem") # Cambia a la ruta correcta de tu clave privada.
         #host        = self.public_ip
         host        = aws_instance.practica_provisioner.public_ip  # Uso de la IP pública correcta.
         #timeout     = "5m" # Aumenta el tiempo de espera a 5 minutos

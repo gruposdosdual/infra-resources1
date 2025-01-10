@@ -1,0 +1,8 @@
+- name: Copiar archivo index.html a los servidores web
+  hosts: web_servers
+  become: yes
+  tasks:
+   - name: Copiar el archivo index.html
+     copy:
+      src: ./index.html
+      dest: /var/www/html/index.html

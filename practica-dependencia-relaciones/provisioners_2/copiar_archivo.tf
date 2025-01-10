@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = "vpc-002427d5be38383d7" # aws_vpc.main.id
   tags = {
     Name = "Internet Gateway-jgl"
   }
@@ -93,6 +93,8 @@ resource "aws_instance" "practica_provisioner" {
     Name = "Practica-Provisioner-FJGL"
   }
 }
+
+
 
 resource "null_resource" "provision_file" {
   depends_on = [aws_instance.practica_provisioner]

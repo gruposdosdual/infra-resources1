@@ -1,0 +1,8 @@
+- name: Instalar Nginx
+  hosts: web_servers
+  become: yes
+  tasks:
+   - name: Instalar el paquete nginx
+     apt:
+      name: nginx
+      state: present
