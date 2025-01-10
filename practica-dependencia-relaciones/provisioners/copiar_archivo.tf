@@ -6,12 +6,48 @@ provider "aws" {
 # Crear una VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
+  instance_tenancy = "default" 
+
+  tags = {
+    Name = "VPC-jgl"
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags = {
+    Name = "Internet Gateway-jgl"
+  }
 }
 
 resource "aws_subnet" "subnet" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "Subnet-jgl"
+  }
 }
+
+resource "aws_route_table" "route_table" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    Name = "Route Table-jgl"
+  }
+}
+
+resource "aws_route_table_association" "route_table_association" {
+  subnet_id      = aws_subnet.subnet.id
+  route_table_id = aws_route_table.route_table.id
+}
+
+
 
 
 # Crear un grupo de seguridad
@@ -54,7 +90,7 @@ resource "aws_instance" "practica_provisioner" {
   depends_on = [aws_security_group.allow_ssh]
 
   tags = {
-    Name = "Practica-Provisioner"
+    Name = "Practica-Provisioner-FJGL"
   }
 }
 
@@ -64,15 +100,16 @@ resource "null_resource" "provision_file" {
   provisioner "remote-exec" {
     connection {
         type        = "ssh"
-        user        = "ec2-user"     # Cambia según el AMI (puede ser 'ubuntu' o 'root').
+        user        = "ubuntu"     # Cambia según el AMI (puede ser 'ubuntu' o 'root').
         private_key = file("my-key.pem") # Cambia a la ruta correcta de tu clave privada.
         #host        = self.public_ip
         host        = aws_instance.practica_provisioner.public_ip  # Uso de la IP pública correcta.
+        #timeout     = "5m" # Aumenta el tiempo de espera a 5 minutos
   }
 
     inline = [
         "echo 'Configurando la instancia' > /tmp/config.cfg",
-        "sudo mv /tmp/config.cfg /home/ec2-user/config.cfg"
+        "sudo mv /tmp/config.cfg /home/ubuntu/config.cfg"
     ]
   }
 }
