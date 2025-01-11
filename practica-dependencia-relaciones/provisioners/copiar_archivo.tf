@@ -102,6 +102,7 @@ resource "null_resource" "provision_file" {
         type        = "ssh"
         user        = "ubuntu"     # Cambia según el AMI (puede ser 'ubuntu' o 'root').
         private_key = file("~/.ssh/my-aws-key.pem") # Cambia a la ruta correcta de tu clave privada.
+        # Ruta exacta de este archivo /home/javier/.ssh/my-aws-key.pem
         #host        = self.public_ip
         host        = aws_instance.practica_provisioner.public_ip  # Uso de la IP pública correcta.
         #timeout     = "5m" # Aumenta el tiempo de espera a 5 minutos
