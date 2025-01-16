@@ -1,0 +1,4 @@
+# Ignorar archivos y directorios generados por Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
