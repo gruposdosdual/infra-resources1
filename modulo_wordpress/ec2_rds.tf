@@ -6,11 +6,11 @@ resource "aws_instance" "web_server" {
   disable_api_termination = true
   subnet_id     = data.aws_subnet.subnet_a.id #aws_subnet.subnet_1.id
 
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh2.id]
 
   associate_public_ip_address = true
 
-  depends_on = [aws_security_group.allow_ssh]
+  depends_on = [aws_security_group.allow_ssh2]
 
   tags = {
     Name = "WebServer-Terraform-FJGL"
@@ -30,7 +30,7 @@ resource "aws_db_instance" "mysql_db" {
   publicly_accessible   = true
   skip_final_snapshot   = true
   db_subnet_group_name  = aws_db_subnet_group.mysql_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.allow_mysql.id]
+  vpc_security_group_ids = [aws_security_group.allow_mysql2.id]
   identifier            = "database-rds-jgl"
 
   tags = {
@@ -41,7 +41,8 @@ resource "aws_db_instance" "mysql_db" {
 # Provisioner
 resource "null_resource" "provision_file" {
   depends_on = [aws_instance.web_server]
-
+  
+  # Copiar el archivo install.yaml a la instancia remota
   provisioner "file" {
     source      = "install.yaml"
     destination = "/home/ubuntu/install.yaml"
@@ -53,7 +54,7 @@ resource "null_resource" "provision_file" {
       timeout     = "5m"
     }
   }
-
+  # Ejecutar el playbook de Ansible
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
@@ -64,6 +65,7 @@ resource "null_resource" "provision_file" {
     }
 
     inline = [
+      "echo 'Starting Ansible setup...'",
       "sudo apt update",
       "sudo apt install -y ansible",
       "ansible-playbook -i 'localhost,' -c local /home/ubuntu/install.yaml"

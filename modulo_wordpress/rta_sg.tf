@@ -1,6 +1,6 @@
 # Grupo de seguridad para SSH
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+resource "aws_security_group" "allow_ssh2" {
+  name        = "allow_ssh_new"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -24,8 +24,8 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 # Grupo de seguridad para MySQL
-resource "aws_security_group" "allow_mysql" {
-  name        = "allow_mysql"
+resource "aws_security_group" "allow_mysql2" {
+  name        = "allow_mysql_new"
   description = "Allow MySQL inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -33,7 +33,7 @@ resource "aws_security_group" "allow_mysql" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.allow_ssh.id]
+    security_groups = [aws_security_group.allow_ssh2.id]
   }
 
   egress {
@@ -49,8 +49,8 @@ resource "aws_security_group" "allow_mysql" {
 }
 
 # Grupo de seguridad para Apache (HTTP)
-resource "aws_security_group" "allow_apache" {
-  name        = "allow_apache"
+resource "aws_security_group" "allow_apache2" {
+  name        = "allow_apache_new"
   description = "Allow Apache HTTP inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -74,8 +74,8 @@ resource "aws_security_group" "allow_apache" {
 }
 
 # Grupo de seguridad para WordPress
-resource "aws_security_group" "allow_wordpress" {
-  name        = "allow_wordpress"
+resource "aws_security_group" "allow_wordpress2" {
+  name        = "allow_wordpress_new"
   description = "Allow WordPress inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 

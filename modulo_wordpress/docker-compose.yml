@@ -4,8 +4,8 @@ services:
   wordpress:
     image: wordpress:latest
     container_name: wordpress
-    #env_file: 
-    # - .env
+    env_file: 
+      - .env
     environment:
       WORDPRESS_DB_HOST: ${DB_HOST}  # Aquí va el endpoint de tu RDS MySQL
       WORDPRESS_DB_NAME: ${DB_NAME}
@@ -15,25 +15,26 @@ services:
       - "8081:80"
     networks:
       - wordpress-network
+    restart: always      
     volumes:
-      - wordpress-data:/var/www/html
-      - ./wp-content:/var/www/html/wp-content
+       - ./wordpress-data:/var/www/html
+      #- ./wp-content:/var/www/html/wp-content
 
   apache:
     image: httpd:latest
     container_name: apache
     volumes:
-      # - ./wordpress:/var/www/html
+       - ./wordpress:/var/www/html
       # - ./apache-config:/usr/local/apache2/conf
       #- ./apache-config/httpd.conf:/usr/local/apache2/conf/httpd.conf  # Montando solo el archivo httpd.conf
       #- ./data:/var/www/html
       #- ./config/apache.conf:/etc/apache2/apache2.conf
       # - ./html:/usr/local/apache2/htdocs
     
-      - ./apache-config/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./apache-config:/usr/local/apache2/conf
+      #- ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+      #- ./apache-config:/usr/local/apache2/conf
     #entrypoint: /bin/bash -c "mkdir -p /usr/local/apache2/conf && touch /usr/local/apache2/conf/httpd.conf && exec httpd-foreground"
-    entrypoint: /bin/bash -c "if [ ! -f /usr/local/apache2/conf/httpd.conf ]; then touch /usr/local/apache2/conf/httpd.conf; fi && chmod 644 /usr/local/apache2/conf/httpd.conf && exec httpd-foreground"
+    #entrypoint: /bin/bash -c "if [ ! -f /usr/local/apache2/conf/httpd.conf ]; then touch /usr/local/apache2/conf/httpd.conf; fi && chmod 644 /usr/local/apache2/conf/httpd.conf && exec httpd-foreground"
     restart: always
     ports:
       - "8080:80"
@@ -46,3 +47,4 @@ networks:
 
 volumes:
   wordpress-data:
+    #driver: local
