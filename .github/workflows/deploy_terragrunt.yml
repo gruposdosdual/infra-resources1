@@ -27,7 +27,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.10.4  # Cambia según la versión que necesites
+          terraform_version: 1.10.0  # Cambia según la versión que necesites
 
       # 4. Instalar Terragrunt
       - name: Install Terragrunt
