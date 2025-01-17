@@ -1,0 +1,39 @@
+name: Deploy with Terragrunt
+
+on:
+  push:
+    branches:
+      - test  # Ejecuta el workflow solo cuando se haga un push a la rama test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Configurar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Configurar credenciales de AWS
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3  # Cambia la región según tu configuración
+
+      # 3. Instalar Terragrunt
+      - name: Install Terragrunt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          curl -L -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/latest/download/terragrunt_linux_amd64
+          chmod +x terragrunt
+          sudo mv terragrunt /usr/local/bin/
+
+      # 4. Ejecutar Terragrunt
+      - name: Deploy with Terragrunt
+        run: |
+          cd terragrunt_wordpress/dev  # Cambia al entorno que quieres desplegar
+          terragrunt init
+          terragrunt apply -auto-approve
