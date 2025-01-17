@@ -65,6 +65,7 @@ jobs:
       - name: Deploy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev 
+          ls -la
           terragrunt init
           terragrunt apply -auto-approve
         #terragrunt init
