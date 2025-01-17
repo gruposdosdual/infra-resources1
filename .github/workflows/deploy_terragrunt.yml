@@ -42,7 +42,8 @@ jobs:
       - name: Deploy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev 
-          terragrunt init
-          terragrunt apply -auto-approve
+          terragrunt --terragrunt-tfpath $(which terraform) apply -auto-approve
+        #terragrunt init
+        #terragrunt apply -auto-approve
 
     
