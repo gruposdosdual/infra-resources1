@@ -45,7 +45,8 @@ jobs:
             echo "Directory terragrunt_wordpress/dev does not exist."
             exit 1 
           fi
-          cd terragrunt_wordpress/dev if [ ! -x "$(command -v terragrunt)" ]; then
+          cd terragrunt_wordpress/dev
+          if [ ! -x "$(command -v terragrunt)" ]; then
             echo "Terragrunt is not installed or not executable."
             exit 1
           fi
