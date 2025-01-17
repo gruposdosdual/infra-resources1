@@ -38,7 +38,17 @@ jobs:
           chmod +x terragrunt
           sudo mv terragrunt /usr/local/bin/
 
-      # 5. Verificar la existencia del directorio y permisos
+      # 5. Verificar version Terraform
+      - name: Verify Terraform version
+        run: | 
+          terraform --version
+
+      # 6. Verificar version Terragrunt
+      - name: Verify Terragrunt version
+        run: | 
+          terragrunt --version
+
+      # 7. Verificar la existencia del directorio y permisos
       - name: Verify directory and permissions
         run: | 
           if [ ! -d "terragrunt_wordpress/dev" ]; then 
@@ -51,7 +61,7 @@ jobs:
             exit 1
           fi
 
-      # 6. Ejecutar Terragrunt
+      # 8. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev 
