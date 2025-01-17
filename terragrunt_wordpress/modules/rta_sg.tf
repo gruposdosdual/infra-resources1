@@ -1,6 +1,6 @@
 # Grupo de seguridad para SSH y WORDPRESS
-resource "aws_security_group" "allow_ssh3" {
-  name        = "allow_ssh_nuevo"
+resource "aws_security_group" "allow_ssh_tg" {
+  name        = "allow_ssh_tg"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -26,7 +26,7 @@ resource "aws_security_group" "allow_ssh3" {
   }
 
   tags = {
-    Name = "Allow SSH"
+    Name = "Allow SSH-TG"
   }
 }
 /*

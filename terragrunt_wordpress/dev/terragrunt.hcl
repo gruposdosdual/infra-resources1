@@ -1,6 +1,7 @@
 terraform {
-  source = "../modules"
+    source = "../modules"
 }
+
 
 inputs = {
   aws_region       = "eu-west-3"
@@ -10,8 +11,16 @@ inputs = {
   db_instance_class = "db.t3.micro"
   environment      = "dev"
 }
+/*
+# Referenciar el output de Terraform
+dependency "db_instance" {
+  config_path = "../modules"
+}
 
-
+output "db_endpoint" {
+  value = dependency.db_instance.outputs.db_endpoint
+}
+*/
 /*
 inputs = {
   aws_region       = "eu-west-3"
