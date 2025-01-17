@@ -23,7 +23,13 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-west-3  # Cambia la región según tu configuración
 
-      # 3. Instalar Terragrunt
+      # 3. Instalar terraform
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0  # Cambia según la versión que necesites
+
+      # 4. Instalar Terragrunt
       - name: Install Terragrunt
         run: |
           sudo apt-get update
@@ -32,7 +38,7 @@ jobs:
           chmod +x terragrunt
           sudo mv terragrunt /usr/local/bin/
 
-      # 4. Ejecutar Terragrunt
+      # 5. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev  # Cambia al entorno que quieres desplegar
