@@ -61,6 +61,17 @@ jobs:
             exit 1
           fi
 
+      # 7.5. Configurar la clave SSH
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/my-aws-key.pem
+          chmod 600 ~/.ssh/my-aws-key.pem
+        ## Optional: Add AWS host to known_hosts to prevent SSH warnings
+        #  ssh-keyscan -H <YOUR_AWS_IP> >> ~/.ssh/known_hosts
+        env:
+          AWS_SSH_KEY: ${{ secrets.AWS_SSH_KEY }}
+
       # 8. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
