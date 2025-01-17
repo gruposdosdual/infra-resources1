@@ -41,7 +41,7 @@ jobs:
       # 5. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
-          cd terragrunt_wordpress/dev  # Cambia al entorno que quieres desplegar
+          cd terragrunt_wordpress/dev 
           terragrunt init
           terragrunt apply -auto-approve
 
