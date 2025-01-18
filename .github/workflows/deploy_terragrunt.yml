@@ -88,15 +88,24 @@ jobs:
       - name: Destroy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev
+          terragrunt init
+          terragrunt plan -destroy -out=tfplan  
+          terragrunt show tfplan               
           terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
 
-      # 8. Ejecutar Terragrunt
+      # 10. Diagnóstico del estado
+      - name: Check Terraform State
+        run: |
+          cd terragrunt_wordpress/dev
+          terragrunt state list  
+
+      # 11. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
           cd terragrunt_wordpress/dev          
           terragrunt init
           terragrunt apply -auto-approve
-          
+
         #export AWS_PROFILE=${{ secrets.AWS_PROFILE }}  # Asegúrate de que el perfil de AWS esté configurado          
         #terragrunt init
         #terragrunt apply -auto-approve
