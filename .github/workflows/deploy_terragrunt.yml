@@ -16,13 +16,28 @@ jobs:
 
       # 2. Configurar credenciales de AWS
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: eu-west-3  # Cambia la región según tu configuración
-          aws-profile: ${{ secrets.AWS_PROFILE }}  # Usa el perfil almacenado en los secretos
+        run: |
+          mkdir -p ~/.aws
+          echo "[profile default]" > ~/.aws/config
+          echo "region = eu-west-3" >> ~/.aws/config
+          echo "[profile ${{ secrets.AWS_PROFILE }}]" >> ~/.aws/config
+          echo "region = eu-west-3" >> ~/.aws/config
+
+          echo "[248189943700_EKS-alumnos]" > ~/.aws/credentials
+          echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          echo "[${{ secrets.AWS_PROFILE }}]" >> ~/.aws/credentials
+          echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          echo "aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
+
+        #uses: aws-actions/configure-aws-credentials@v3
+        #with:
+        #  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #  aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        #  aws-region: eu-west-3  # Cambia la región según tu configuración
+        #  aws-profile: ${{ secrets.AWS_PROFILE }}  # Usa el perfil almacenado en los secretos
 
       # 3. Instalar terraform
       - name: Install Terraform
