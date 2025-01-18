@@ -73,7 +73,7 @@ jobs:
             exit 1
           fi
 
-      # 7.5. Configurar la clave SSH
+      # 8. Configurar la clave SSH
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
@@ -84,14 +84,19 @@ jobs:
         env:
           aws_ssh_key: ${{ secrets.AWS_SSH_KEY }}
 
+      # 9. Destruir recursos con Terragrunt
+      - name: Destroy with Terragrunt
+        run: |
+          cd terragrunt_wordpress/dev
+          terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+
       # 8. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
-          cd terragrunt_wordpress/dev 
-          ls -la
-          terragrunt destroy -auto-approve
+          cd terragrunt_wordpress/dev          
           terragrunt init
           terragrunt apply -auto-approve
+          
         #export AWS_PROFILE=${{ secrets.AWS_PROFILE }}  # Asegúrate de que el perfil de AWS esté configurado          
         #terragrunt init
         #terragrunt apply -auto-approve
