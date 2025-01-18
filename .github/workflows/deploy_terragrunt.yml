@@ -91,8 +91,8 @@ jobs:
           ls -la
           terragrunt destroy -auto-approve
           terragrunt init
-          export AWS_PROFILE=${{ secrets.AWS_PROFILE }}  # Asegúrate de que el perfil de AWS esté configurado
           terragrunt apply -auto-approve
+        #export AWS_PROFILE=${{ secrets.AWS_PROFILE }}  # Asegúrate de que el perfil de AWS esté configurado          
         #terragrunt init
         #terragrunt apply -auto-approve
         ##export TERRAGRUNT_TFPATH=/home/runner/work/_temp/770842be-e026-4e5c-b43e-883c6f5b113d/terraform-bin
