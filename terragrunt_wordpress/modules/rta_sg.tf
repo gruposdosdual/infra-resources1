@@ -32,7 +32,7 @@ resource "aws_security_group" "allow_ssh_tg4" {
 
 # Grupo de seguridad para MySQL
 resource "aws_security_group" "allow_mysql4" {
-  name        = "allow_mysql_new"
+  name        = "allow_mysql_unique"
   description = "Allow MySQL inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
