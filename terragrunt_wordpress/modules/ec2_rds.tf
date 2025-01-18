@@ -28,7 +28,7 @@ resource "aws_instance" "web_server" {
   ami           = var.ami_id #"ami-09be70e689bddcef5"
   instance_type = var.ami_instance_type #"t3.small"
   key_name      = "my-aws-key"
-  disable_api_termination = true
+  disable_api_termination = false
   subnet_id     = data.aws_subnet.subnet_a.id #aws_subnet.subnet_1.id
 
   vpc_security_group_ids = [aws_security_group.allow_ssh_tg4.id]
