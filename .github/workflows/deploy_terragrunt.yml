@@ -26,7 +26,7 @@ jobs:
           echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
           echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials          
           echo "aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
-
+        # Code alternativo
         #uses: aws-actions/configure-aws-credentials@v3
         #with:
         #  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
