@@ -10,7 +10,7 @@ resource "aws_db_instance" "instance_db" {
   publicly_accessible   = true
   skip_final_snapshot   = true
   db_subnet_group_name  = aws_db_subnet_group.mysql_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.allow_mysql4.id]
+  vpc_security_group_ids = [aws_security_group.allow_mysql5.id]
   identifier            = "database-${var.environment}" 
 
   
@@ -31,13 +31,13 @@ resource "aws_instance" "web_server" {
   disable_api_termination = false
   subnet_id     = data.aws_subnet.subnet_a.id #aws_subnet.subnet_1.id
 
-  vpc_security_group_ids = [aws_security_group.allow_ssh_tg4.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh_tg5.id]
   #vpc_security_group_ids = [aws_security_group.allow_ssh2.id, aws_security_group.allow_http_https.id]
 
 
   associate_public_ip_address = true
 
-  depends_on = [aws_security_group.allow_ssh_tg4]
+  depends_on = [aws_security_group.allow_ssh_tg5]
 
 
 

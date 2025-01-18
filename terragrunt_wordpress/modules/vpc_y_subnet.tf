@@ -53,7 +53,7 @@ data "aws_subnet" "subnet_b" {
 
 # Grupo de subredes para RDS
 resource "aws_db_subnet_group" "mysql_subnet_group" {
-  name       = "tg4-mysql-subnet-group"
+  name       = "tg5-mysql-subnet-group"
   subnet_ids = [data.aws_subnet.subnet_a.id, data.aws_subnet.subnet_b.id]
 
   tags = {
