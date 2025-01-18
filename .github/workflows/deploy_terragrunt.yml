@@ -89,6 +89,7 @@ jobs:
         run: |
           cd terragrunt_wordpress/dev 
           ls -la
+          terragrunt destroy
           terragrunt init
           export AWS_PROFILE=${{ secrets.AWS_PROFILE }}  # Asegúrate de que el perfil de AWS esté configurado
           terragrunt apply -auto-approve
