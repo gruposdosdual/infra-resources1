@@ -83,5 +83,5 @@ jobs:
           terragrunt apply -auto-approve
         #terragrunt init
         #terragrunt apply -auto-approve
-        #export TERRAGRUNT_TFPATH=/home/runner/work/_temp/770842be-e026-4e5c-b43e-883c6f5b113d/terraform-bin
+        ##export TERRAGRUNT_TFPATH=/home/runner/work/_temp/770842be-e026-4e5c-b43e-883c6f5b113d/terraform-bin
     
