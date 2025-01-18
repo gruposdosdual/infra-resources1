@@ -1,6 +1,6 @@
 # Grupo de seguridad para SSH y WORDPRESS
-resource "aws_security_group" "allow_ssh_tg3" {
-  name        = "allow_ssh_tg3"
+resource "aws_security_group" "allow_ssh_tg4" {
+  name        = "allow_ssh_tg4"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -26,12 +26,12 @@ resource "aws_security_group" "allow_ssh_tg3" {
   }
 
   tags = {
-    Name = "Allow SSH-TG3"
+    Name = "Allow SSH-TG4"
   }
 }
 
 # Grupo de seguridad para MySQL
-resource "aws_security_group" "allow_mysql2" {
+resource "aws_security_group" "allow_mysql4" {
   name        = "allow_mysql_new"
   description = "Allow MySQL inbound traffic"
   vpc_id      = data.aws_vpc.default.id
@@ -41,7 +41,7 @@ resource "aws_security_group" "allow_mysql2" {
     to_port         = 3306
     protocol        = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    #security_groups = [aws_security_group.allow_mysql2.id]
+    #security_groups = [aws_security_group.allow_mysql4.id]
   }
 
   egress {
