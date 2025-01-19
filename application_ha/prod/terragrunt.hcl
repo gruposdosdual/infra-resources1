@@ -3,7 +3,7 @@ terraform {
 }
 
 inputs = {
-  aws_region       = "eu-west-3"
+  aws_region       = var.aws_region  # Utiliza una variable para la región
   ami_id           = "ami-03e96481558ad8ee4"
   ami_instance_type = "t2.large"
   rds_engine       = "postgresql"

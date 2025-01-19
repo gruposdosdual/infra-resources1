@@ -84,8 +84,14 @@ jobs:
           cd application_ha/dev
           terragrunt init
           terragrunt plan -destroy -out=tfplan  
-          terragrunt show tfplan               
-          terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+          terragrunt show tfplan
+          terragrunt apply -var="region=eu-west-3a" -auto-approve
+          terragrunt apply -var="region=eu-west-3b" -auto-approve   
+          
+      #  terragrunt apply -var-file=region_1.tfvars -auto-approve
+      #   terragrunt apply -var-file=region_2.tfvars -auto-approve  
+      
+       # terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
 
       # 10. Diagnóstico del estado
       - name: Check Terraform State
@@ -93,9 +99,27 @@ jobs:
           cd application_ha/dev
           terragrunt state list  
 
-      # 11. Ejecutar Terragrunt
+      # 11. Deploy Terragrunt
       - name: Deploy with Terragrunt
         run: |
           cd application_ha/dev          
           terragrunt init
-          terragrunt apply -auto-approve
+          terragrunt apply -var="region=eu-west-3a" -auto-approve
+          terragrunt apply -var="region=eu-west-3b" -auto-approve
+
+     # Otra forma de implementar
+      # 11. Deploy en la región eu-west-3a
+      #- name: Deploy in eu-west-3a
+        #run: |
+          #export AWS_REGION=eu-west-3a
+          #cd application_ha/dev          
+          #terragrunt init
+          #terragrunt apply -auto-approve
+
+      # 12. Deploy en la región eu-west-3b
+      #- name: Deploy in eu-west-3b
+        #run: |
+          #export AWS_REGION=eu-west-3b
+          #cd application_ha/dev          
+          #terragrunt init
+          #terragrunt apply -auto-approve
