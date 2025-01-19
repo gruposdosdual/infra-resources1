@@ -13,12 +13,33 @@ inputs = {
   ami_instance_type = "t2.micro"  
   rds_engine       = "mysql"
   db_instance_class = "db.t3.micro"
-  environment      = "dev"
+  environment      = "dev"  
 }
 
 locals {
+  # Determina dinámicamente qué archivo tfvars usar basándose en una variable de entorno
+  selected_region_file = "${get_terragrunt_dir()}/${get_env("TFVARS_FILE", "region_1.tfvars")}"
+
+  # Lee el valor de aws_region desde el archivo seleccionado
+  aws_region = read_terragrunt_config(local.selected_region_file).inputs.aws_region
+}
+
+/*
+
+
+locals {
+  # Define cuál archivo tfvars se usará dinámicamente.
+  aws_region = read_terragrunt_config("${get_terragrunt_dir()}/region_1.tfvars").inputs.aws_region
+}
+*/
+
+
+/*
+locals {
   aws_region = read_terragrunt_config(find_in_parent_folders("region.tfvars")).inputs.aws_region
 }
+
+*/
 /*
 # Referenciar el output de Terraform
 dependency "db_instance" {
