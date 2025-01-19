@@ -86,7 +86,7 @@ jobs:
           terragrunt plan -destroy -out=tfplan  
           terragrunt show tfplan
           terragrunt apply -var-file=region_1.tfvars -auto-approve
-          terragrunt apply -var-file=region_2.tfvars -auto-approve
+        # terragrunt apply -var-file=region_2.tfvars -auto-approve
            
           
       #   terragrunt apply -var-file=region_1.tfvars -auto-approve
@@ -94,7 +94,7 @@ jobs:
       #   terragrunt apply -var="region=eu-west-3a" -auto-approve
       #   terragrunt apply -var="region=eu-west-3b" -auto-approve  
 
-       #  terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+      #  terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
 
       # 10. Diagnóstico del estado
       - name: Check Terraform State

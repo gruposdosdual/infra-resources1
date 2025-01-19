@@ -1,8 +1,8 @@
 # Output de la region
 # Archivo outputs.tf
-output "region" {
+output "aws_region" {
   description = "La región donde se ha desplegado la infraestructura"
-  value       = var.region
+  value       = var.aws_region
 }
 
 
