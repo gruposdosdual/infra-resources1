@@ -132,3 +132,7 @@ jobs:
           #cd application_ha/dev          
           #terragrunt init
           #terragrunt apply -auto-approve
+
+
+
+# -----------------------------------------------------------------------------------------------#
