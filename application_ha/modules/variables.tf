@@ -1,3 +1,8 @@
+variable "region" {
+  description = "Región de AWS para la implementación"
+  type        = string
+}
+
 variable "environment" {
   description = "Environment name (dev or prod)"
   type        = string
@@ -25,3 +30,16 @@ variable "db_instance_class" {
   description = "RDS instance class"
   type        = string
 }
+
+# ---------------------------------------------------------##
+
+
+
+
+
+
+
+
+
+
+

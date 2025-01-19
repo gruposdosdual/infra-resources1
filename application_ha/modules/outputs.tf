@@ -1,3 +1,11 @@
+# Output de la region
+# Archivo outputs.tf
+output "region" {
+  description = "La región donde se ha desplegado la infraestructura"
+  value       = var.region
+}
+
+
 # Output de la IP pública del servidor web
 output "web_server_ip" {
   description = "Public IP address of the EC2 web server"

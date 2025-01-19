@@ -1,14 +1,16 @@
-name: Deploy with Terragrunt
+name: Deploy with Terragrunt in Multiregion
 
 on:
   push:
     branches:
       - test  # Ejecuta el workflow solo cuando se haga un push a la rama test
 
-jobs:
-  deploy:
+
+jobs:  
+  deploy-multiregion:
     runs-on: ubuntu-latest
 
+  
     steps:
       # 1. Configurar el repositorio
       - name: Checkout repository
@@ -26,14 +28,7 @@ jobs:
           echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
           echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials          
           echo "aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
-        # Code alternativo
-        #uses: aws-actions/configure-aws-credentials@v3
-        #with:
-        #  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #  aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        #  aws-region: eu-west-3  # Cambia la región según tu configuración
-        #  aws-profile: ${{ secrets.AWS_PROFILE }}  # Usa el perfil almacenado en los secretos
+        
 
       # 3. Instalar terraform
       - name: Install Terraform
@@ -79,15 +74,14 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/my-aws-key.pem
           chmod 600 ~/.ssh/my-aws-key.pem
-        ## Optional: Add AWS host to known_hosts to prevent SSH warnings
-        #  ssh-keyscan -H <YOUR_AWS_IP> >> ~/.ssh/known_hosts
+        
         env:
           aws_ssh_key: ${{ secrets.AWS_SSH_KEY }}
 
       # 9. Destruir recursos con Terragrunt
       - name: Destroy with Terragrunt
         run: |
-          cd terragrunt_wordpress/dev
+          cd application_ha/dev
           terragrunt init
           terragrunt plan -destroy -out=tfplan  
           terragrunt show tfplan               
@@ -96,12 +90,12 @@ jobs:
       # 10. Diagnóstico del estado
       - name: Check Terraform State
         run: |
-          cd terragrunt_wordpress/dev
+          cd application_ha/dev
           terragrunt state list  
 
       # 11. Ejecutar Terragrunt
       - name: Deploy with Terragrunt
         run: |
-          cd terragrunt_wordpress/dev          
+          cd application_ha/dev          
           terragrunt init
           terragrunt apply -auto-approve
