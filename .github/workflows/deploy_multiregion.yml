@@ -58,11 +58,11 @@ jobs:
       # 7. Verificar la existencia del directorio y permisos
       - name: Verify directory and permissions
         run: | 
-          if [ ! -d "terragrunt_wordpress/dev" ]; then 
-            echo "Directory terragrunt_wordpress/dev does not exist."
+          if [ ! -d "application_ha/dev" ]; then 
+            echo "Directory application_ha/dev does not exist."
             exit 1 
           fi
-          cd terragrunt_wordpress/dev
+          cd application_ha/dev
           if [ ! -x "$(command -v terragrunt)" ]; then
             echo "Terragrunt is not installed or not executable."
             exit 1
