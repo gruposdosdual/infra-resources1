@@ -9,7 +9,10 @@ on:
 jobs:  
   deploy-multiregion:
     runs-on: ubuntu-latest
-
+    
+    #strategy:
+    #    matrix:
+    #      region: ['eu-west-3a', 'eu-west-3b']  # Añade las regiones que deseas desplegar
   
     steps:
       # 1. Configurar el repositorio
@@ -85,7 +88,10 @@ jobs:
           terragrunt init
           terragrunt plan -destroy -out=tfplan  
           terragrunt show tfplan
-          terragrunt apply -auto-approve || echo "Apply step failed, continuing."
+          terragrunt apply -var-file=region_1.tfvars -auto-approve
+          terragrunt apply -var-file=region_2.tfvars -auto-approve
+          
+        #  terragrunt apply -auto-approve || echo "Apply step failed, continuing."
 
           
         # terragrunt apply -var-file=region_1.tfvars -auto-approve
@@ -111,7 +117,7 @@ jobs:
           cd application_ha/dev          
           terragrunt init
           terragrunt apply -var-file=region_1.tfvars -auto-approve
-      #   terragrunt apply -var-file=region_2.tfvars -auto-approve 
+          terragrunt apply -var-file=region_2.tfvars -auto-approve 
 
       #   terragrunt apply -var="region=eu-west-3a" -auto-approve
       #   terragrunt apply -var="region=eu-west-3b" -auto-approve
@@ -132,6 +138,13 @@ jobs:
           #cd application_ha/dev          
           #terragrunt init
           #terragrunt apply -auto-approve
+
+      # 13. Otra forma de despliegue:
+      #  - name: Deploy to ${matrix.region}
+      #  run: |
+      #    cd application_ha/${matrix.region}
+      #    terragrunt init
+      #    terragrunt apply -auto-approve
 
 
 
