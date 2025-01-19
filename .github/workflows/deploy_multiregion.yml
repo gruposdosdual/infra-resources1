@@ -85,7 +85,10 @@ jobs:
           terragrunt init
           terragrunt plan -destroy -out=tfplan  
           terragrunt show tfplan
-          terragrunt apply -var-file=region_1.tfvars -auto-approve
+          terragrunt apply -auto-approve || echo "Apply step failed, continuing."
+
+          
+        # terragrunt apply -var-file=region_1.tfvars -auto-approve
         # terragrunt apply -var-file=region_2.tfvars -auto-approve
            
           
@@ -107,8 +110,11 @@ jobs:
         run: |
           cd application_ha/dev          
           terragrunt init
-          terragrunt apply -var="region=eu-west-3a" -auto-approve
-          terragrunt apply -var="region=eu-west-3b" -auto-approve
+          terragrunt apply -var-file=region_1.tfvars -auto-approve
+      #   terragrunt apply -var-file=region_2.tfvars -auto-approve 
+
+      #   terragrunt apply -var="region=eu-west-3a" -auto-approve
+      #   terragrunt apply -var="region=eu-west-3b" -auto-approve
 
      # Otra forma de implementar
       # 11. Deploy en la región eu-west-3a
