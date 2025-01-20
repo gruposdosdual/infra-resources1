@@ -7,7 +7,7 @@ on:
 
 
 jobs:  
-  deploy-multiregion:
+  deploy:
     runs-on: ubuntu-latest
     
     #strategy:
