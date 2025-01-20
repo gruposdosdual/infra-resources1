@@ -81,21 +81,31 @@ jobs:
         env:
           aws_ssh_key: ${{ secrets.AWS_SSH_KEY }}
 
-      # 9. Destruir recursos en region_1
-      - name: Destroy resources in region_1
+      # 11. Deploy Terragrunt
+      - name: Deploy with Terragrunt
         run: |
-          cd application_ha/dev
-          TFVARS_FILE=region_1.tfvars terragrunt init
-          TFVARS_FILE=region_1.tfvars terragrunt plan -destroy -out=tfplan
-          TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
+          cd application_ha/dev          
+          terragrunt init                 
+          terragrunt plan -destroy -out=tfplan  
+          terragrunt show tfplan               
+          terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+           
+
+      # 9. Destruir recursos en region_1
+      #- name: Destroy resources in region_1
+        #run: |
+          #cd application_ha/dev
+          #TFVARS_FILE=region_1.tfvars terragrunt init
+          #TFVARS_FILE=region_1.tfvars terragrunt plan -destroy -out=tfplan
+          #TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
 
       # 10. Destruir recursos en region_2
-      - name: Destroy resources in region_2
-        run: |
-          cd application_ha/dev
-          TFVARS_FILE=region_2.tfvars terragrunt init
-          TFVARS_FILE=region_2.tfvars terragrunt plan -destroy -out=tfplan
-          TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
+      #- name: Destroy resources in region_2
+        #run: |
+          #cd application_ha/dev
+          #TFVARS_FILE=region_2.tfvars terragrunt init
+          #TFVARS_FILE=region_2.tfvars terragrunt plan -destroy -out=tfplan
+          #TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
 
 
       
