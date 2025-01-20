@@ -24,7 +24,6 @@ locals {
 
 /*
 
-
 locals {
   # Define cuál archivo tfvars se usará dinámicamente.
   aws_region = read_terragrunt_config("${get_terragrunt_dir()}/region_1.tfvars").inputs.aws_region
