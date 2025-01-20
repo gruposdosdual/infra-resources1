@@ -81,8 +81,8 @@ jobs:
         env:
           aws_ssh_key: ${{ secrets.AWS_SSH_KEY }}
 
-      # 11. Deploy Terragrunt
-      - name: Deploy with Terragrunt
+      # 11. Destruir Terragrunt
+      - name: Destroy with Terragrunt
         run: |
           cd application_ha/dev          
           terragrunt init                 
