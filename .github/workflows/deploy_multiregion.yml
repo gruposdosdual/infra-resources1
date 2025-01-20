@@ -88,7 +88,7 @@ jobs:
           #terragrunt init                 
           #terragrunt plan -destroy -out=tfplan  
           #terragrunt show tfplan               
-          3terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+          #terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
            
 
       # 9. Destruir recursos en region_1
