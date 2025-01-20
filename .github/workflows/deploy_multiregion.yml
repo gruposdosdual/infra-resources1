@@ -120,8 +120,10 @@ jobs:
       - name: Deploy resources in region_1
         run: |
           cd application_ha/dev
-          terragrunt init
-          terragrunt apply -var-file=region_1.tfvars -auto-approve
+          terragrunt init --terragrunt-working-dir=eu-west-3a
+          terragrunt apply --terragrunt-working-dir=eu-west-3a -auto-approve
+        #  terragrunt init
+        #  terragrunt apply -var-file=region_1.tfvars -auto-approve
         #  TFVARS_FILE=region_1.tfvars terragrunt init
         #  TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
 
@@ -129,8 +131,10 @@ jobs:
       - name: Deploy resources in region_2
         run: |
           cd application_ha/dev
-          terragrunt init
-          terragrunt apply -var-file=region_2.tfvars -auto-approve
+          erragrunt init --terragrunt-working-dir=eu-west-3b
+          terragrunt apply --terragrunt-working-dir=eu-west-3b -auto-approve
+        #  terragrunt init
+        #  terragrunt apply -var-file=region_2.tfvars -auto-approve
         #  TFVARS_FILE=region_2.tfvars terragrunt init
         #  TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
 
