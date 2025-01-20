@@ -4,7 +4,7 @@ terraform {
 
 
 inputs = {
-  aws_region       = var.aws_region #local.aws_region #var.aws_region  # Utiliza una variable para la región, en este caso el uso incorrecto de var.aws_region
+  aws_region       = local.aws_region #var.aws_region  # Utiliza una variable para la región, en este caso el uso incorrecto de var.aws_region
   ami_id           = "ami-09be70e689bddcef5"
   ami_instance_type = "t2.micro"  
   rds_engine       = "mysql"
@@ -19,11 +19,11 @@ locals {
   aws_region           = yamldecode(file(local.selected_region_file)).aws_region
 }
 */
-/*
+
 locals {
     aws_region = fileexists("region_1.tfvars") ? jsondecode(file("region_1.tfvars")).aws_region : "eu-west-3"
 }
-*/
+
 
 
 /*

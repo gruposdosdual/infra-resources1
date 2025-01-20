@@ -110,10 +110,10 @@ jobs:
 
       
       # 11. Diagnóstico del estado
-      - name: Check Terraform State
-        run: |
-          cd application_ha/dev
-          terragrunt state list  
+      #- name: Check Terraform State
+        #run: |
+          #cd application_ha/dev
+          #terragrunt state list  
 
       
       # 12. Deploy recursos en region_1
