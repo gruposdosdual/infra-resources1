@@ -98,6 +98,29 @@ jobs:
           TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
 
 
+      
+      # 11. Diagnóstico del estado
+      - name: Check Terraform State
+        run: |
+          cd application_ha/dev
+          terragrunt state list  
+
+      
+      # 12. Deploy recursos en region_1
+      - name: Deploy resources in region_1
+        run: |
+          cd application_ha/dev
+          TFVARS_FILE=region_1.tfvars terragrunt init
+          TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
+
+      # 13. Deploy recursos en region_2
+      - name: Deploy resources in region_2
+        run: |
+          cd application_ha/dev
+          TFVARS_FILE=region_2.tfvars terragrunt init
+          TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
+
+
       # 9. Destruir recursos con Terragrunt
       #- name: Destroy with Terragrunt
         #run: |
@@ -120,27 +143,6 @@ jobs:
       #   terragrunt apply -var="region=eu-west-3b" -auto-approve  
 
       #  terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
-
-      # 10. Diagnóstico del estado
-      - name: Check Terraform State
-        run: |
-          cd application_ha/dev
-          terragrunt state list  
-
-      
-      # 11. Deploy recursos en region_1
-      - name: Deploy resources in region_1
-        run: |
-          cd application_ha/dev
-          TFVARS_FILE=region_1.tfvars terragrunt init
-          TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
-
-      # 12. Deploy recursos en region_2
-      - name: Deploy resources in region_2
-        run: |
-          cd application_ha/dev
-          TFVARS_FILE=region_2.tfvars terragrunt init
-          TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
 
 
 

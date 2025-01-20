@@ -2,11 +2,7 @@ terraform {
     source = "../modules"
 }
 
-/*
-locals {
-    aws_region = fileexists("region_1.tfvars") ? jsondecode(file("region_1.tfvars")).aws_region : "eu-west-3"
-}
-*/
+
 inputs = {
   aws_region       = local.aws_region #var.aws_region  # Utiliza una variable para la región, en este caso el uso incorrecto de var.aws_region
   ami_id           = "ami-09be70e689bddcef5"
@@ -23,7 +19,13 @@ locals {
 }
 
 /*
+locals {
+    aws_region = fileexists("region_1.tfvars") ? jsondecode(file("region_1.tfvars")).aws_region : "eu-west-3"
+}
+*/
 
+
+/*
 locals {
   # Define cuál archivo tfvars se usará dinámicamente.
   aws_region = read_terragrunt_config("${get_terragrunt_dir()}/region_1.tfvars").inputs.aws_region
