@@ -4,7 +4,7 @@ terraform {
 
 
 inputs = {
-  aws_region        = var.aws_region
+  aws_region        = "eu-west-3a"
   ami_id            = "ami-09be70e689bddcef5"
   ami_instance_type = "t2.micro"
   rds_engine        = "mysql"
