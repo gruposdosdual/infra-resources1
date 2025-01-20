@@ -1,6 +1,6 @@
 # Grupo de seguridad para SSH y WORDPRESS
-resource "aws_security_group" "allow_ssh_mr" {
-  name        = "allow_ssh_mr"
+resource "aws_security_group" "allow_ssh_mr1" {
+  name        = "allow_ssh_mr1"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -26,13 +26,13 @@ resource "aws_security_group" "allow_ssh_mr" {
   }
 
   tags = {
-    Name = "Allow SSH-MR"
+    Name = "Allow SSH-MR1"
   }
 }
 
 # Grupo de seguridad para MySQL
-resource "aws_security_group" "allow_mysql_mr" {
-  name        = "allow_mysql_mr"
+resource "aws_security_group" "allow_mysql_mr1" {
+  name        = "allow_mysql_mr1"
   description = "Allow MySQL inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 

@@ -59,7 +59,7 @@ resource "aws_subnet" "private_subnet_b" {
 
 # Grupo de subredes para RDS
 resource "aws_db_subnet_group" "mysql_subnet_group" {
-  name       = "mr-mysql-subnet-group"
+  name       = "mr1-mysql-subnet-group"
   subnet_ids = [
     aws_subnet.private_subnet_a.id,
     aws_subnet.private_subnet_b.id
