@@ -120,15 +120,19 @@ jobs:
       - name: Deploy resources in region_1
         run: |
           cd application_ha/dev
-          TFVARS_FILE=region_1.tfvars terragrunt init
-          TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
+          terragrunt init
+          terragrunt apply -var-file=region_1.tfvars -auto-approve
+        #  TFVARS_FILE=region_1.tfvars terragrunt init
+        #  TFVARS_FILE=region_1.tfvars terragrunt apply -auto-approve
 
       # 13. Deploy recursos en region_2
       - name: Deploy resources in region_2
         run: |
           cd application_ha/dev
-          TFVARS_FILE=region_2.tfvars terragrunt init
-          TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
+          terragrunt init
+          terragrunt apply -var-file=region_2.tfvars -auto-approve
+        #  TFVARS_FILE=region_2.tfvars terragrunt init
+        #  TFVARS_FILE=region_2.tfvars terragrunt apply -auto-approve
 
 
       # 9. Destruir recursos con Terragrunt
