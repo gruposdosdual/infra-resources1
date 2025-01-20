@@ -1,4 +1,46 @@
 terraform {
+  source = "../modules"
+}
+
+locals {
+  # Definir las regiones y los archivos de variables correspondientes
+  region_files = {
+    "eu-west-3a" = "region_1.tfvars"
+    "eu-west-3b" = "region_2.tfvars"
+  }
+
+  # Asignar el archivo de configuración adecuado según la región
+  aws_region = "eu-west-3a"  # Puedes cambiar esta línea según la región deseada
+  region_file = local.region_files[local.aws_region]
+}
+
+inputs = {
+  aws_region        = local.aws_region
+  ami_id            = "ami-09be70e689bddcef5"
+  ami_instance_type = "t2.micro"
+  rds_engine        = "mysql"
+  db_instance_class = "db.t3.micro"
+  environment       = "dev"
+}
+
+# Configuración para cargar el archivo .tfvars según la región
+terraform {
+  extra_arguments "region_vars" {
+    commands = ["apply", "plan", "destroy"]
+
+    arguments = [
+      "-var-file=${local.region_file}"
+    ]
+  }
+}
+
+
+
+
+
+
+/*
+terraform {
     source = "../modules"
 }
 
@@ -14,7 +56,7 @@ inputs = {
   db_instance_class = "db.t3.micro"
   environment       = "dev"
 }
-
+*/
 
 
 
