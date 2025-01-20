@@ -17,11 +17,9 @@ inputs = {
 }
 
 locals {
-  # Determina dinámicamente qué archivo tfvars usar basándose en una variable de entorno
-  selected_region_file = "${get_terragrunt_dir()}/${get_env("TFVARS_FILE", "region_1.tfvars")}"
-
-  # Lee el valor de aws_region desde el archivo seleccionado
-  aws_region = read_terragrunt_config(local.selected_region_file).inputs.aws_region
+  # Usar la variable de entorno TFVARS_FILE para seleccionar dinámicamente el archivo tfvars
+  selected_region_file = get_env("TFVARS_FILE", "")
+  aws_region           = yamldecode(file(local.selected_region_file)).aws_region
 }
 
 /*
