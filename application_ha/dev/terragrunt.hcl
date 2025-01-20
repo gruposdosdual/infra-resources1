@@ -2,9 +2,6 @@ terraform {
     source = "../modules"
 }
 
-provider "aws" {
-  region = var.aws_region
-}
 
 inputs = {
   aws_region        = var.aws_region
