@@ -1,3 +1,49 @@
+terraform {
+    source = "../modules"
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+inputs = {
+  aws_region        = var.aws_region
+  ami_id            = "ami-09be70e689bddcef5"
+  ami_instance_type = "t2.micro"
+  rds_engine        = "mysql"
+  db_instance_class = "db.t3.micro"
+  environment       = "dev"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 terraform {
     source = "../modules"
@@ -20,7 +66,7 @@ module "my_module" {
   environment       = "dev"
 }
 */
-
+/*
 locals {
   region = var.aws_region
 }
@@ -41,7 +87,7 @@ inputs = {
   db_instance_class = "db.t3.micro"
   environment       = "dev"
 }
-
+*/
 
 /*
 inputs = {
