@@ -82,13 +82,13 @@ jobs:
           aws_ssh_key: ${{ secrets.AWS_SSH_KEY }}
 
       # 11. Destruir Terragrunt
-      - name: Destroy with Terragrunt
-        run: |
-          cd application_ha/dev          
-          terragrunt init                 
-          terragrunt plan -destroy -out=tfplan  
-          terragrunt show tfplan               
-          terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
+      #- name: Destroy with Terragrunt
+        #run: |
+          #cd application_ha/dev          
+          #terragrunt init                 
+          #terragrunt plan -destroy -out=tfplan  
+          #terragrunt show tfplan               
+          #terragrunt destroy -auto-approve || echo "Destroy step failed, continuing."
            
 
       # 9. Destruir recursos en region_1
