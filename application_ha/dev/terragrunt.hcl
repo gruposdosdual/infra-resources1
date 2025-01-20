@@ -23,17 +23,7 @@ inputs = {
   environment       = "dev"
 }
 
-# Solo un bloque terraform
-terraform {
-  source = "../modules"
 
-  extra_arguments "region_vars" {
-    commands = ["apply", "plan", "destroy"]
-    arguments = [
-      "-var-file=${local.region_file}"
-    ]
-  }
-}
 
 
 
