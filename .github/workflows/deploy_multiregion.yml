@@ -109,7 +109,6 @@ jobs:
           #terragrunt apply -var-file=region_2.tfvars -auto-approve
           
         #  terragrunt apply -auto-approve || echo "Apply step failed, continuing."
-
           
         # terragrunt apply -var-file=region_1.tfvars -auto-approve
         # terragrunt apply -var-file=region_2.tfvars -auto-approve
