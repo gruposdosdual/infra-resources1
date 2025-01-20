@@ -10,7 +10,7 @@ locals {
   }
 
   # Asignar el archivo de configuración adecuado según la región
-  aws_region = "eu-west-3a"  # Puedes cambiar esta línea según la región deseada
+  aws_region = "eu-west-3a"  # Cambia esta línea para la región que deseas
   region_file = local.region_files[local.aws_region]
 }
 
@@ -23,11 +23,12 @@ inputs = {
   environment       = "dev"
 }
 
-# Configuración para cargar el archivo .tfvars según la región
+# Solo un bloque terraform
 terraform {
+  source = "../modules"
+
   extra_arguments "region_vars" {
     commands = ["apply", "plan", "destroy"]
-
     arguments = [
       "-var-file=${local.region_file}"
     ]
