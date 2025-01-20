@@ -2,9 +2,12 @@ terraform {
     source = "../modules"
 }
 
+locals {
+  aws_region = read_terragrunt_config(find_in_parent_folders("region.tfvars")).inputs.aws_region
+}
 
 inputs = {
-  aws_region        = "eu-west-3a"
+  aws_region        = local.inputs.aws_region
   ami_id            = "ami-09be70e689bddcef5"
   ami_instance_type = "t2.micro"
   rds_engine        = "mysql"
