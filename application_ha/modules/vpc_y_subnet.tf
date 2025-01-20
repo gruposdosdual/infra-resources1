@@ -14,7 +14,7 @@ data "aws_internet_gateway" "default" {
 # Crear una subred pública en la zona de disponibilidad "eu-west-3a"
 resource "aws_subnet" "public_subnet_a" {
   vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "172.31.64.0/20" # Asegúrate de que no solape con el CIDR de otras subredes
+  cidr_block              = "172.31.0.0/20" # Asegúrate de que no solape con el CIDR de otras subredes
   availability_zone       = "eu-west-3a"
   map_public_ip_on_launch = true
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "public_subnet_a" {
 # Crear una subred pública en la zona de disponibilidad "eu-west-3b"
 resource "aws_subnet" "public_subnet_b" {
   vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "172.31.80.0/20" # Asegúrate de que no solape con el CIDR de otras subredes
+  cidr_block              = "172.31.16.0/20" # Asegúrate de que no solape con el CIDR de otras subredes
   availability_zone       = "eu-west-3b"
   map_public_ip_on_launch = true
 
