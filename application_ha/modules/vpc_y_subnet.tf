@@ -25,10 +25,10 @@ data "aws_subnet" "subnet_a" {
 
 
 # Si conoces el CIDR de la subred, agrega este filtro para hacerlo más específico
-  filter {
-    name   = "cidr-block"
-    values = ["172.31.0.0/20"]  # Reemplaza con el CIDR correcto
-  }
+  #filter {
+    #name   = "cidr-block"
+    #values = ["172.31.0.0/20"]  # Reemplaza con el CIDR correcto
+  #}
 }
 
 
@@ -45,10 +45,10 @@ data "aws_subnet" "subnet_b" {
 
 
 # Si conoces el CIDR de la subred, agrega este filtro para hacerlo más específico
-  filter {
-    name   = "cidr-block"
-    values = ["172.31.16.0/20"]  # Reemplaza con el CIDR correcto
-  }
+  #filter {
+    #name   = "cidr-block"
+    #values = ["172.31.16.0/20"]  # Reemplaza con el CIDR correcto
+  #}
 }
 
 # Grupo de subredes para RDS
