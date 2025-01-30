@@ -3,38 +3,32 @@ name: Deploy to ECR
 on:
   push:
     branches:
-    - feature/daniel
+    - main # Trigger on push to the main branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout your repository
+    # Step 1: Checkout code
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Step 2: Set up AWS credentials
-    - name: Set up AWS credentials
+    # Step 2: Configure AWS credentials using the GitHub secrets
+    - name: Configure AWS credentials using GitHub Secrets
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: 'eu-west-3'
+        region: eu-west-3
 
-    # Step 3: Log in to Amazon ECR
-    - name: Log in to Amazon ECR
-      uses: aws-actions/amazon-ecr-login@v1
-      with:
-        region: 'eu-west-3'
-
-    # Step 4: Build the Docker image
+    # Step 3: Build Docker image
     - name: Build Docker image
       run: |
         docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-3.amazonaws.com/my-ecr-repo-dad:latest .
 
-    # Step 5: Push Docker image to Amazon ECR
+    # Step 4: Push Docker image to ECR
     - name: Push Docker image to Amazon ECR
       run: |
         docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-3.amazonaws.com/my-ecr-repo-dad:latest
