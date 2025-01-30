@@ -3,7 +3,7 @@ name: Deploy to ECR
 on:
   push:
     branches:
-    - main # Trigger on push to the main branch
+    - feature/daniel
 
 jobs:
   deploy:
