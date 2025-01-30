@@ -1,6 +1,6 @@
 provider "aws" {
   region = "eu-west-3"
-  profile = "248189943700_EKS-alumnos"
+  profile = "EKS-alumnos-248189943700"
 }
 
 resource "aws_vpc" "main" {
@@ -13,7 +13,7 @@ resource "aws_subnet" "subnet" {
 }
 
 resource "aws_db_instance" "practica_recurso2" { 
-  identifier        = "practica-recurso2-db" 
+  identifier        = "practica-recurso-DA-db" 
   engine            = "mysql" 
   instance_class    = "db.t4g.micro" 
   allocated_storage = 20 
@@ -46,8 +46,3 @@ resource "aws_security_group" "practica_recursos" {
 } 
 
 */
-
-
-
-
-

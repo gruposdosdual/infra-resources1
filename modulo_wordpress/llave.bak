@@ -1,0 +1,17 @@
+resource "tls_private_key" "keytf" {
+  algorithm = "RSA"
+
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name = "modulo_wordpress_key"
+  public_key = tls_private_key.keytf.public_key_openssh
+}
+
+# Guardar Key
+resource "null_resource" "save_key_pair" {
+  provisioner "local-exec" {
+    command = "echo Hola mundo"
+  }
+  
+}

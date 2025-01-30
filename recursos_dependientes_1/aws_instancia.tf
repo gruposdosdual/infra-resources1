@@ -1,6 +1,6 @@
 provider "aws" {
   region = "eu-west-3"
-  profile = "248189943700_EKS-alumnos"
+  profile = "EKS-alumnos-248189943700"
 }
 
 resource "aws_vpc" "main" {
@@ -35,8 +35,3 @@ resource "aws_instance" "practica_recursos_instancia" {
     depends_on = [aws_security_group.practica_recursos] 
 # Asegura que el grupo de seguridad se cree antes que la instancia 
 } 
-
-
-
-
-

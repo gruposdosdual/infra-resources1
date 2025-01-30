@@ -1,0 +1,163 @@
+# Route table - Set of rules to determine where network traffic should be directed
+# Route Table for Public Subnets (to allow internet traffic)
+resource "aws_route_table" "public_route_table" {
+  vpc_id = data.aws_vpc.existing_vpc.id  
+
+  route {
+    cidr_block = "0.0.0.0/0"  # All traffic to the internet
+    gateway_id = aws_internet_gateway.main_igw.id  # Route to the Internet Gateway
+  }
+
+  tags = {
+    Name = "public-route-table-dad"
+  }
+}
+
+
+# resource "aws_route_table_association" "public_association" {
+#   count          = length(data.aws_subnet.public_subnet_id.ids)  # Iterate over all public subnets
+#   subnet_id      = element(data.aws_subnet.public_subnet_id.ids, count.index)  # Get the subnet ID for each index
+#   route_table_id = aws_route_table.public_route_table.id
+# }
+
+resource "aws_route_table_association" "public_association_1" {
+  subnet_id      = data.aws_subnets.public_subnet_1.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+resource "aws_route_table_association" "public_association_2" {
+  subnet_id      = data.aws_subnets.public_subnet_2.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+resource "aws_route_table_association" "public_association_3" {
+  subnet_id      = data.aws_subnets.public_subnet_3.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+
+# Internet Gateway - Used to allow communication between the VPC and the internet
+resource "aws_internet_gateway" "main_igw" {
+  vpc_id = data.aws_vpc.existing_vpc.id  # Reference the existing VPC
+  tags = {
+    Name = "main-igw"
+  }
+}
+
+# Elastic IP (EIP) - Static and public IPv4 associated to my account.
+resource "aws_eip" "main_eip" {
+  # No need to explicitly associate the EIP to VPC anymore
+}
+
+resource "aws_security_group" "main_sg" {
+  vpc_id = data.aws_vpc.existing_vpc.id  # Reference the existing VPC  
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH from anywhere
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from anywhere
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # Allow all outbound traffic
+    cidr_blocks = ["0.0.0.0/0"]  # Allow all outbound traffic
+  }
+}
+
+
+
+# # Route table - Set of rules to determine where network traffic should be directed
+# # Route Table for Public Subnets (to allow internet traffic)
+# resource "aws_route_table" "public_route_table" {
+#   vpc_id = aws_vpc.new_vpc.id
+
+#   route {
+#     cidr_block = "0.0.0.0/0"  # All traffic to the internet
+#     gateway_id = aws_internet_gateway.main_igw.id  # Route to the Internet Gateway
+#   }
+
+#   tags = {
+#     Name = "public-route-table-dad"
+#   }
+# }
+
+# # Associate Public Subnets with the public Route Table
+# resource "aws_route_table_association" "public_association_1" {
+#   subnet_id      = aws_subnet.public_subnet_1.id
+#   route_table_id = aws_route_table.public_route_table.id
+# }
+
+# resource "aws_route_table_association" "public_association_2" {
+#   subnet_id      = aws_subnet.public_subnet_2.id
+#   route_table_id = aws_route_table.public_route_table.id
+# }
+
+# # Private route table
+# resource "aws_route_table" "private_route_table" {
+#   vpc_id = aws_vpc.new_vpc.id
+
+#   tags = {
+#     Name = "public-route-table-dad"
+#   }
+# }
+
+# # Associate Private Subnets with the private Route Table
+# resource "aws_route_table_association" "private_association_1" {
+#   subnet_id      = aws_subnet.private_subnet_1.id
+#   route_table_id = aws_route_table.private_route_table.id
+# }
+
+# resource "aws_route_table_association" "private_association_2" {
+#   subnet_id      = aws_subnet.private_subnet_2.id
+#   route_table_id = aws_route_table.private_route_table.id
+# }
+
+# # Internet Gateway - Used to allow communication between the VPC and the internet
+
+# resource "aws_internet_gateway" "main_igw" {
+#   vpc_id = aws_vpc.new_vpc.id
+#   tags = {
+#     Name = "main-igw"
+#   }
+# }
+
+# # Elastic IP (EIP) - Static and public IPv4 associated to my account.
+
+# resource "aws_eip" "main_eip" {
+#     # association of EIP to VPC is handled automatically.
+# }
+
+# resource "aws_security_group" "main_sg" {
+#   vpc_id = aws_vpc.new_vpc.id  
+
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]  # Allow SSH from anywhere
+#   }
+
+#   ingress {
+#     from_port   = 80
+#     to_port     = 80
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from anywhere
+#   }
+
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"  # Allow all outbound traffic
+#     cidr_blocks = ["0.0.0.0/0"]  # Allow all outbound traffic
+#   }
+# }

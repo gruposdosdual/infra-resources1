@@ -37,10 +37,10 @@ module "rds" {
 
 terraform {
   backend "s3" {
-    bucket         = "test-bucket-43120896345235"
+    bucket         = "my-unique-s3-bucket-87887689786978"
     key            = "terraform.tfstate"      
     region         = "eu-west-3"
-    profile        = "248189943700_EKS-alumnos"
+    profile        = "EKS-alumnos-248189943700"
   }
 }
 

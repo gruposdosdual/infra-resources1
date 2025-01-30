@@ -1,0 +1,36 @@
+services:
+  apache:
+    image: httpd:latest
+    container_name: apache-container
+    ports:
+      - "80:80"
+    volumes:
+      - ./wordpress:/var/www/html  # Carpeta local con los archivos de WordPress (si es necesario)
+    networks:
+      - wordpress_network
+    restart: always
+
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    depends_on:
+      - apache
+    ports:
+      - "8080:80"  # Expose port 80 for HTTP
+    environment:
+      WORDPRESS_DB_NAME: mydatabaseDAD  # Database name
+      WORDPRESS_DB_USER: admin          # RDS MySQL username
+      WORDPRESS_DB_PASSWORD: password123!  # RDS MySQL password
+      WORDPRESS_DB_HOST: my-database-instance-dad.criuqg402mat.eu-west-3.rds.amazonaws.com  # RDS hostname and port
+    volumes:
+      - ./wordpress:/var/www/html
+    restart: always
+
+# volumes:
+#   wordpress_data:
+#     driver: local
+
+networks:
+  wordpress_network:  # Custom network to connect the services
+    driver: bridge

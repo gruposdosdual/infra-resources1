@@ -12,8 +12,3 @@ variable "bucket_name" {
   description = "Nombre para el bucket0"
   type        = string
 }
-
-variable "bucket_name1" {
-  description = "Nombre para el bucket1"
-  type        = string
-}
